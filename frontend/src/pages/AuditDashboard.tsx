@@ -84,7 +84,7 @@ export default function AuditDashboard() {
     <main className="min-h-screen bg-stone-50 px-6 py-6">
       <div className="mx-auto max-w-7xl">
         <header className="rounded-lg border border-stone-200 bg-white p-5 shadow-sm">
-          {demoDataset ? <div className="mb-4 rounded-md border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-semibold text-teal-900">Demo mode: this dashboard was generated from the live `{demoDataset}` sample dataset.</div> : null}
+          {demoDataset ? <div className="mb-4 rounded-md border border-teal-200 bg-teal-50 px-4 py-3 text-sm font-semibold text-teal-900">Demo mode: this dashboard was generated from the `{demoDataset}` sample dataset.</div> : null}
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
               <Link className="text-sm font-semibold text-teal-700" to="/">DataTrust AI</Link>

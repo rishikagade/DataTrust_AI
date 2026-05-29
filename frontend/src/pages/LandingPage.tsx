@@ -64,7 +64,7 @@ export default function LandingPage() {
         <div className="rounded-lg border border-stone-200 bg-white p-5 shadow-sm">
           <div className="rounded-md bg-stone-50 p-4">
             <h2 className="font-semibold text-slate-950">Start with a realistic demo</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Each demo runs the live backend pipeline and opens the full dashboard.</p>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Each demo opens the full dashboard, with a bundled fallback available for static deployments.</p>
           </div>
           <div className="mt-4 grid gap-3">
             {demos.map((demo) => (

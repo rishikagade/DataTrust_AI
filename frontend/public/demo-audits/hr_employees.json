@@ -1,0 +1,462 @@
+{
+  "audit_id": "demo-hr_employees",
+  "dataset": {
+    "filename": "hr_employees.csv",
+    "row_count": 1200,
+    "column_count": 7,
+    "uploaded_at": "2026-05-29T00:00:00+00:00"
+  },
+  "profile_stats": {
+    "employee_id": {
+      "name": "employee_id",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 1197,
+      "top_values": [
+        {
+          "value": "E1007",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "E1033",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "E1099",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "E1000",
+          "count": 1,
+          "pct": 0.0833
+        },
+        {
+          "value": "E1001",
+          "count": 1,
+          "pct": 0.0833
+        }
+      ],
+      "numeric_summary": null
+    },
+    "hire_date": {
+      "name": "hire_date",
+      "inferred_type": "datetime",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 1013,
+      "top_values": [
+        {
+          "value": "2018-11-23",
+          "count": 4,
+          "pct": 0.3333
+        },
+        {
+          "value": "2020-06-22",
+          "count": 4,
+          "pct": 0.3333
+        },
+        {
+          "value": "2022-05-12",
+          "count": 4,
+          "pct": 0.3333
+        },
+        {
+          "value": "2022-06-08",
+          "count": 3,
+          "pct": 0.25
+        },
+        {
+          "value": "2020-06-08",
+          "count": 3,
+          "pct": 0.25
+        }
+      ],
+      "numeric_summary": null
+    },
+    "termination_date": {
+      "name": "termination_date",
+      "inferred_type": "datetime",
+      "null_count": 837,
+      "null_pct": 69.75,
+      "unique_count": 344,
+      "top_values": [
+        {
+          "value": "2023-12-05",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "2026-03-20",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "2024-06-23",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "2020-01-17",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "2024-07-31",
+          "count": 2,
+          "pct": 0.1667
+        }
+      ],
+      "numeric_summary": null
+    },
+    "status": {
+      "name": "status",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 6,
+      "top_values": [
+        {
+          "value": "ACTIVE",
+          "count": 285,
+          "pct": 23.75
+        },
+        {
+          "value": "Active",
+          "count": 276,
+          "pct": 23.0
+        },
+        {
+          "value": "active",
+          "count": 276,
+          "pct": 23.0
+        },
+        {
+          "value": "terminated",
+          "count": 130,
+          "pct": 10.8333
+        },
+        {
+          "value": "Terminated",
+          "count": 121,
+          "pct": 10.0833
+        }
+      ],
+      "numeric_summary": null
+    },
+    "salary": {
+      "name": "salary",
+      "inferred_type": "integer",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 1175,
+      "top_values": [
+        {
+          "value": "1040000",
+          "count": 18,
+          "pct": 1.5
+        },
+        {
+          "value": "94055",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "91363",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "83347",
+          "count": 2,
+          "pct": 0.1667
+        },
+        {
+          "value": "101403",
+          "count": 2,
+          "pct": 0.1667
+        }
+      ],
+      "numeric_summary": {
+        "min": 52133.0,
+        "q1": 80374.0,
+        "median": 106678.0,
+        "mean": 120622.98666666666,
+        "q3": 134451.25,
+        "max": 1040000.0,
+        "std": 117714.22593088276
+      }
+    },
+    "department": {
+      "name": "department",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 8,
+      "top_values": [
+        {
+          "value": "Finance",
+          "count": 174,
+          "pct": 14.5
+        },
+        {
+          "value": "MKT",
+          "count": 164,
+          "pct": 13.6667
+        },
+        {
+          "value": "ENG",
+          "count": 161,
+          "pct": 13.4167
+        },
+        {
+          "value": "HR",
+          "count": 151,
+          "pct": 12.5833
+        },
+        {
+          "value": "FIN",
+          "count": 146,
+          "pct": 12.1667
+        }
+      ],
+      "numeric_summary": null
+    },
+    "job_title": {
+      "name": "job_title",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 5,
+      "top_values": [
+        {
+          "value": "Director",
+          "count": 253,
+          "pct": 21.0833
+        },
+        {
+          "value": "Engineer",
+          "count": 242,
+          "pct": 20.1667
+        },
+        {
+          "value": "Coordinator",
+          "count": 241,
+          "pct": 20.0833
+        },
+        {
+          "value": "Manager",
+          "count": 238,
+          "pct": 19.8333
+        },
+        {
+          "value": "Analyst",
+          "count": 226,
+          "pct": 18.8333
+        }
+      ],
+      "numeric_summary": null
+    }
+  },
+  "rule_results": [
+    {
+      "rule_id": "duplicate_key",
+      "rule_name": "Duplicate Key Check",
+      "category": "uniqueness",
+      "affected_columns": [
+        "employee_id"
+      ],
+      "affected_count": 3,
+      "affected_pct": 0.25,
+      "severity": "Critical",
+      "description": "Column 'employee_id' has 3 non-unique key values.",
+      "suggested_fix": "Investigate key generation and deduplicate or repair keys at source.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.230908+00:00"
+    },
+    {
+      "rule_id": "missing_values",
+      "rule_name": "Missing Value Check",
+      "category": "completeness",
+      "affected_columns": [
+        "termination_date"
+      ],
+      "affected_count": 837,
+      "affected_pct": 69.75,
+      "severity": "Critical",
+      "description": "Column 'termination_date' has 69.75% missing values (837 rows).",
+      "suggested_fix": "Impute or inspect upstream source for missing values. This column may be intentionally sparse for active employees; validate against status before treating it as a defect.",
+      "metadata": {
+        "domain_note": "This column may be intentionally sparse for active employees; validate against status before treating it as a defect."
+      },
+      "timestamp": "2026-05-29T20:49:15.304546+00:00"
+    },
+    {
+      "rule_id": "referential_integrity",
+      "rule_name": "Referential Integrity Check",
+      "category": "integrity",
+      "affected_columns": [
+        "hire_date",
+        "termination_date"
+      ],
+      "affected_count": 23,
+      "affected_pct": 1.9167,
+      "severity": "High",
+      "description": "Found 23 rows where 'hire_date' is after 'termination_date', violating expected chronological relationship.",
+      "suggested_fix": "Found 23 rows where 'hire_date' is after 'termination_date'. Review for data entry errors or migration artifacts.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.343500+00:00"
+    },
+    {
+      "rule_id": "inconsistent_category",
+      "rule_name": "Inconsistent Category Check",
+      "category": "consistency",
+      "affected_columns": [
+        "status"
+      ],
+      "affected_count": 4,
+      "affected_pct": 0.3333,
+      "severity": "Medium",
+      "description": "Column 'status' has 2 variant cluster(s) with 4 non-canonical value(s).",
+      "suggested_fix": "Standardise 'status' to one canonical label set before joins, grouping, and dashboard filters.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.325300+00:00"
+    },
+    {
+      "rule_id": "inconsistent_category",
+      "rule_name": "Inconsistent Category Check",
+      "category": "consistency",
+      "affected_columns": [
+        "department"
+      ],
+      "affected_count": 4,
+      "affected_pct": 0.3333,
+      "severity": "Medium",
+      "description": "Column 'department' has 4 variant cluster(s) with 4 non-canonical value(s).",
+      "suggested_fix": "Standardise 'department' to one canonical label set before joins, grouping, and dashboard filters.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.336845+00:00"
+    },
+    {
+      "rule_id": "text_formatting",
+      "rule_name": "Text Formatting Check",
+      "category": "conformity",
+      "affected_columns": [
+        "status"
+      ],
+      "affected_count": 285,
+      "affected_pct": 23.75,
+      "severity": "Medium",
+      "description": "Column 'status' has 285 value(s) with leading/trailing whitespace or ALL CAPS.",
+      "suggested_fix": "Column 'status' has 285 values with formatting issues (leading/trailing whitespace or ALL CAPS). Strip whitespace before joins and standardise case.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.326412+00:00"
+    },
+    {
+      "rule_id": "outliers",
+      "rule_name": "Outlier Detection Check",
+      "category": "outliers",
+      "affected_columns": [
+        "salary"
+      ],
+      "affected_count": 18,
+      "affected_pct": 1.5,
+      "severity": "Low",
+      "description": "Column 'salary' has 1.50% outlier values (18 rows).",
+      "suggested_fix": "Inspect outliers and decide whether to correct, remove, or preserve them based on business context.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.331328+00:00"
+    }
+  ],
+  "scoring": {
+    "overall_score": 69.16,
+    "component_scores": {
+      "missing_value": {
+        "p_i": 69.75,
+        "weight": 25.0,
+        "renormalized_weight": 25.0,
+        "weighted_deduction": 17.4375,
+        "component_health": 30.25
+      },
+      "duplicate_rows": {
+        "p_i": 0.0,
+        "weight": 20.0,
+        "renormalized_weight": 20.0,
+        "weighted_deduction": 0.0,
+        "component_health": 100.0
+      },
+      "invalid_type": {
+        "p_i": 0.0,
+        "weight": 20.0,
+        "renormalized_weight": 20.0,
+        "weighted_deduction": 0.0,
+        "component_health": 100.0
+      },
+      "outliers": {
+        "p_i": 0.75,
+        "weight": 10.0,
+        "renormalized_weight": 10.0,
+        "weighted_deduction": 0.075,
+        "component_health": 99.25
+      },
+      "critical_failures": {
+        "p_i": 70.0,
+        "weight": 15.0,
+        "renormalized_weight": 15.0,
+        "weighted_deduction": 10.5,
+        "component_health": 30.0
+      },
+      "business_rule_violations": {
+        "p_i": 28.25,
+        "weight": 10.0,
+        "renormalized_weight": 10.0,
+        "weighted_deduction": 2.825,
+        "component_health": 71.75
+      }
+    },
+    "component_weights": {
+      "missing_value": 25.0,
+      "duplicate_rows": 20.0,
+      "invalid_type": 20.0,
+      "outliers": 10.0,
+      "critical_failures": 15.0,
+      "business_rule_violations": 10.0
+    },
+    "calculation_detail": {
+      "weighted_penalty_sum": 30.8375,
+      "penalties": {
+        "missing_value": 69.75,
+        "duplicate_rows": 0.0,
+        "invalid_type": 0.0,
+        "outliers": 0.75,
+        "critical_failures": 70.0,
+        "business_rule_violations": 28.25
+      },
+      "severity_multiplier": {
+        "Critical": 3.0,
+        "High": 2.0,
+        "Medium": 1.0,
+        "Low": 0.5
+      }
+    }
+  },
+  "metadata": {
+    "notes": "profile computed (basic)",
+    "ai_requested": true,
+    "demo_dataset": "hr_employees",
+    "rules_applied_count": 11
+  },
+  "ai_report": {
+    "executive_summary": "This dataset scored 69.16/100 with 7 detected issue(s), including 2 critical and 1 high-severity finding(s). The most visible affected columns include department, employee_id, hire_date, status, termination_date.",
+    "risk_interpretation": "Prioritize critical and high-severity findings because they can distort KPIs, joins, filters, and downstream models.",
+    "cleaning_recommendations": "Investigate key generation and deduplicate or repair keys at source. Impute or inspect upstream source for missing values. This column may be intentionally sparse for active employees; validate against status before treating it as a defect. Found 23 rows where 'hire_date' is after 'termination_date'. Review for data entry errors or migration artifacts. Standardise 'status' to one canonical label set before joins, grouping, and dashboard filters. Standardise 'department' to one canonical label set before joins, grouping, and dashboard filters. Column 'status' has 285 values with formatting issues (leading/trailing whitespace or ALL CAPS). Strip whitespace before joins and standardise case.",
+    "dashboard_impact": "Resolving these findings improves dashboard trust, metric consistency, and model feature reliability.",
+    "generated_at": "2026-05-29T00:00:00+00:00",
+    "model": "llama-3.3-70b-versatile",
+    "source": "local",
+    "warning": "Bundled demo fallback; configure VITE_BACKEND_URL to run the live backend pipeline."
+  }
+}

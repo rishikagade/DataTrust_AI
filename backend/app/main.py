@@ -64,6 +64,7 @@ default_origins = ",".join(
         "http://127.0.0.1:5176",
         "http://127.0.0.1:5177",
         "http://127.0.0.1:5178",
+        "https://datatrust-ai.vercel.app",
     ]
 )
 origins = [origin.strip() for origin in os.environ.get("ALLOWED_ORIGINS", default_origins).split(",") if origin.strip()]

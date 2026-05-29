@@ -1,0 +1,524 @@
+{
+  "audit_id": "demo-sales_transactions",
+  "dataset": {
+    "filename": "sales_transactions.csv",
+    "row_count": 15000,
+    "column_count": 7,
+    "uploaded_at": "2026-05-29T00:00:00+00:00"
+  },
+  "profile_stats": {
+    "transaction_id": {
+      "name": "transaction_id",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 14655,
+      "top_values": [
+        {
+          "value": "TX1012675",
+          "count": 2,
+          "pct": 0.0133
+        },
+        {
+          "value": "TX1013778",
+          "count": 2,
+          "pct": 0.0133
+        },
+        {
+          "value": "TX1012833",
+          "count": 2,
+          "pct": 0.0133
+        },
+        {
+          "value": "TX1007575",
+          "count": 2,
+          "pct": 0.0133
+        },
+        {
+          "value": "TX1000772",
+          "count": 2,
+          "pct": 0.0133
+        }
+      ],
+      "numeric_summary": null
+    },
+    "order_date": {
+      "name": "order_date",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 1200,
+      "top_values": [
+        {
+          "value": "10/10/2025",
+          "count": 31,
+          "pct": 0.2067
+        },
+        {
+          "value": "01/05/2025",
+          "count": 30,
+          "pct": 0.2
+        },
+        {
+          "value": "01/12/2025",
+          "count": 29,
+          "pct": 0.1933
+        },
+        {
+          "value": "05/09/2025",
+          "count": 29,
+          "pct": 0.1933
+        },
+        {
+          "value": "07/09/2025",
+          "count": 29,
+          "pct": 0.1933
+        }
+      ],
+      "numeric_summary": null
+    },
+    "ship_date": {
+      "name": "ship_date",
+      "inferred_type": "datetime",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 460,
+      "top_values": [
+        {
+          "value": "2025-02-07",
+          "count": 55,
+          "pct": 0.3667
+        },
+        {
+          "value": "2025-03-26",
+          "count": 53,
+          "pct": 0.3533
+        },
+        {
+          "value": "2025-09-14",
+          "count": 52,
+          "pct": 0.3467
+        },
+        {
+          "value": "2025-03-20",
+          "count": 50,
+          "pct": 0.3333
+        },
+        {
+          "value": "2025-08-12",
+          "count": 48,
+          "pct": 0.32
+        }
+      ],
+      "numeric_summary": null
+    },
+    "order_total": {
+      "name": "order_total",
+      "inferred_type": "float",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 14290,
+      "top_values": [
+        {
+          "value": "754.79",
+          "count": 4,
+          "pct": 0.0267
+        },
+        {
+          "value": "1518.67",
+          "count": 3,
+          "pct": 0.02
+        },
+        {
+          "value": "2478.2",
+          "count": 3,
+          "pct": 0.02
+        },
+        {
+          "value": "55.38",
+          "count": 3,
+          "pct": 0.02
+        },
+        {
+          "value": "681.07",
+          "count": 3,
+          "pct": 0.02
+        }
+      ],
+      "numeric_summary": {
+        "min": -599.06,
+        "q1": 701.565,
+        "median": 1397.115,
+        "mean": 1395.5717973333333,
+        "q3": 2097.8725,
+        "max": 2799.94,
+        "std": 812.6211914535556
+      }
+    },
+    "product_category": {
+      "name": "product_category",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 9,
+      "top_values": [
+        {
+          "value": "Office Supplies",
+          "count": 3097,
+          "pct": 20.6467
+        },
+        {
+          "value": "Services",
+          "count": 3009,
+          "pct": 20.06
+        },
+        {
+          "value": "Furniture",
+          "count": 2964,
+          "pct": 19.76
+        },
+        {
+          "value": "Software",
+          "count": 2897,
+          "pct": 19.3133
+        },
+        {
+          "value": " electronics",
+          "count": 627,
+          "pct": 4.18
+        }
+      ],
+      "numeric_summary": null
+    },
+    "discount_pct": {
+      "name": "discount_pct",
+      "inferred_type": "integer",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 17,
+      "top_values": [
+        {
+          "value": "25",
+          "count": 2573,
+          "pct": 17.1533
+        },
+        {
+          "value": "20",
+          "count": 2556,
+          "pct": 17.04
+        },
+        {
+          "value": "0",
+          "count": 2515,
+          "pct": 16.7667
+        },
+        {
+          "value": "5",
+          "count": 2497,
+          "pct": 16.6467
+        },
+        {
+          "value": "10",
+          "count": 2428,
+          "pct": 16.1867
+        }
+      ],
+      "numeric_summary": {
+        "min": 0.0,
+        "q1": 5.0,
+        "median": 15.0,
+        "mean": 12.6936,
+        "q3": 20.0,
+        "max": 212.0,
+        "std": 9.533703992019777
+      }
+    },
+    "region": {
+      "name": "region",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 5,
+      "top_values": [
+        {
+          "value": "West",
+          "count": 3074,
+          "pct": 20.4933
+        },
+        {
+          "value": "South",
+          "count": 3016,
+          "pct": 20.1067
+        },
+        {
+          "value": "North",
+          "count": 2971,
+          "pct": 19.8067
+        },
+        {
+          "value": "East",
+          "count": 2970,
+          "pct": 19.8
+        },
+        {
+          "value": "Central",
+          "count": 2969,
+          "pct": 19.7933
+        }
+      ],
+      "numeric_summary": null
+    }
+  },
+  "rule_results": [
+    {
+      "rule_id": "duplicate_key",
+      "rule_name": "Duplicate Key Check",
+      "category": "uniqueness",
+      "affected_columns": [
+        "transaction_id"
+      ],
+      "affected_count": 345,
+      "affected_pct": 2.3,
+      "severity": "Critical",
+      "description": "Column 'transaction_id' has 345 non-unique key values.",
+      "suggested_fix": "Investigate key generation and deduplicate or repair keys at source.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:13.443414+00:00"
+    },
+    {
+      "rule_id": "date_format_validation",
+      "rule_name": "Date Format Validation",
+      "category": "conformity",
+      "affected_columns": [
+        "order_date"
+      ],
+      "affected_count": 15000,
+      "affected_pct": 100.0,
+      "severity": "High",
+      "description": "Column 'order_date' contains 3 distinct date format pattern(s). Unparseable values: 0. Example patterns: DD/MM/YYYY, MM/DD/YYYY, YYYY-MM-DD",
+      "suggested_fix": "Standardise 'order_date' to ISO 8601 format (YYYY-MM-DD). Found 3 distinct date format patterns.",
+      "metadata": {
+        "patterns": [
+          "DD/MM/YYYY",
+          "MM/DD/YYYY",
+          "YYYY-MM-DD"
+        ]
+      },
+      "timestamp": "2026-05-29T20:49:14.416020+00:00"
+    },
+    {
+      "rule_id": "duplicate_rows",
+      "rule_name": "Duplicate Row Check",
+      "category": "uniqueness",
+      "affected_columns": [],
+      "affected_count": 690,
+      "affected_pct": 4.6,
+      "severity": "High",
+      "description": "Found 690 exact duplicate rows (4.6% of dataset).",
+      "suggested_fix": "Deduplicate rows keeping the appropriate occurrence and investigate source pipeline.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:13.441523+00:00"
+    },
+    {
+      "rule_id": "numeric_range",
+      "rule_name": "Numeric Range Check",
+      "category": "accuracy",
+      "affected_columns": [
+        "order_total"
+      ],
+      "affected_count": 91,
+      "affected_pct": 0.6067,
+      "severity": "High",
+      "description": "Column 'order_total' has 91 value(s) outside expected range (negative values in monetary field).",
+      "suggested_fix": "Column 'order_total' has 91 values outside the expected range (negative values in monetary field). Review for data entry errors or unit mismatches.",
+      "metadata": {
+        "range_description": "negative values in monetary field"
+      },
+      "timestamp": "2026-05-29T20:49:15.062996+00:00"
+    },
+    {
+      "rule_id": "numeric_range",
+      "rule_name": "Numeric Range Check",
+      "category": "accuracy",
+      "affected_columns": [
+        "discount_pct"
+      ],
+      "affected_count": 13,
+      "affected_pct": 0.0867,
+      "severity": "High",
+      "description": "Column 'discount_pct' has 13 value(s) outside expected range (percentage outside 0-100).",
+      "suggested_fix": "Column 'discount_pct' has 13 values outside the expected range (percentage outside 0-100). Review for data entry errors or unit mismatches.",
+      "metadata": {
+        "range_description": "percentage outside 0-100"
+      },
+      "timestamp": "2026-05-29T20:49:15.145729+00:00"
+    },
+    {
+      "rule_id": "referential_integrity",
+      "rule_name": "Referential Integrity Check",
+      "category": "integrity",
+      "affected_columns": [
+        "order_date",
+        "ship_date"
+      ],
+      "affected_count": 842,
+      "affected_pct": 5.6133,
+      "severity": "High",
+      "description": "Found 842 rows where 'order_date' is after 'ship_date', violating expected chronological relationship.",
+      "suggested_fix": "Found 842 rows where 'order_date' is after 'ship_date'. Review for data entry errors or migration artifacts.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.186209+00:00"
+    },
+    {
+      "rule_id": "inconsistent_category",
+      "rule_name": "Inconsistent Category Check",
+      "category": "consistency",
+      "affected_columns": [
+        "product_category"
+      ],
+      "affected_count": 2,
+      "affected_pct": 0.0133,
+      "severity": "Medium",
+      "description": "Column 'product_category' has 1 variant cluster(s) with 2 non-canonical value(s).",
+      "suggested_fix": "Standardise 'product_category' to one canonical label set before joins, grouping, and dashboard filters.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.090063+00:00"
+    },
+    {
+      "rule_id": "text_formatting",
+      "rule_name": "Text Formatting Check",
+      "category": "conformity",
+      "affected_columns": [
+        "product_category"
+      ],
+      "affected_count": 1845,
+      "affected_pct": 12.3,
+      "severity": "Medium",
+      "description": "Column 'product_category' has 1845 value(s) with leading/trailing whitespace or ALL CAPS.",
+      "suggested_fix": "Column 'product_category' has 1845 values with formatting issues (leading/trailing whitespace or ALL CAPS). Strip whitespace before joins and standardise case.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.098603+00:00"
+    },
+    {
+      "rule_id": "freshness",
+      "rule_name": "Freshness Check",
+      "category": "timeliness",
+      "affected_columns": [
+        "ship_date"
+      ],
+      "affected_count": 1,
+      "affected_pct": 0.0067,
+      "severity": "Low",
+      "description": "The most recent value in 'ship_date' is 53 days old (2026-04-06).",
+      "suggested_fix": "The most recent value in 'ship_date' is 53 days old (2026-04-06). Confirm this dataset is current before using it for reporting or analysis.",
+      "metadata": {
+        "most_recent_date": "2026-04-06",
+        "days_since_most_recent": 53
+      },
+      "timestamp": "2026-05-29T20:49:15.024583+00:00"
+    },
+    {
+      "rule_id": "outliers",
+      "rule_name": "Outlier Detection Check",
+      "category": "outliers",
+      "affected_columns": [
+        "discount_pct"
+      ],
+      "affected_count": 13,
+      "affected_pct": 0.0867,
+      "severity": "Low",
+      "description": "Column 'discount_pct' has 0.09% outlier values (13 rows).",
+      "suggested_fix": "Inspect outliers and decide whether to correct, remove, or preserve them based on business context.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:15.133489+00:00"
+    }
+  ],
+  "scoring": {
+    "overall_score": 74.63,
+    "component_scores": {
+      "missing_value": {
+        "p_i": 0.0,
+        "weight": 25.0,
+        "renormalized_weight": 25.0,
+        "weighted_deduction": 0.0,
+        "component_health": 100.0
+      },
+      "duplicate_rows": {
+        "p_i": 9.2,
+        "weight": 20.0,
+        "renormalized_weight": 20.0,
+        "weighted_deduction": 1.84,
+        "component_health": 90.8
+      },
+      "invalid_type": {
+        "p_i": 100.0,
+        "weight": 20.0,
+        "renormalized_weight": 20.0,
+        "weighted_deduction": 20.0,
+        "component_health": 0.0
+      },
+      "outliers": {
+        "p_i": 0.0433,
+        "weight": 10.0,
+        "renormalized_weight": 10.0,
+        "weighted_deduction": 0.0043,
+        "component_health": 99.9567
+      },
+      "critical_failures": {
+        "p_i": 6.9,
+        "weight": 15.0,
+        "renormalized_weight": 15.0,
+        "weighted_deduction": 1.035,
+        "component_health": 93.1
+      },
+      "business_rule_violations": {
+        "p_i": 24.93,
+        "weight": 10.0,
+        "renormalized_weight": 10.0,
+        "weighted_deduction": 2.493,
+        "component_health": 75.07
+      }
+    },
+    "component_weights": {
+      "missing_value": 25.0,
+      "duplicate_rows": 20.0,
+      "invalid_type": 20.0,
+      "outliers": 10.0,
+      "critical_failures": 15.0,
+      "business_rule_violations": 10.0
+    },
+    "calculation_detail": {
+      "weighted_penalty_sum": 25.3723,
+      "penalties": {
+        "missing_value": 0.0,
+        "duplicate_rows": 9.2,
+        "invalid_type": 100.0,
+        "outliers": 0.0433,
+        "critical_failures": 6.9,
+        "business_rule_violations": 24.93
+      },
+      "severity_multiplier": {
+        "Critical": 3.0,
+        "High": 2.0,
+        "Medium": 1.0,
+        "Low": 0.5
+      }
+    }
+  },
+  "metadata": {
+    "notes": "profile computed (basic)",
+    "ai_requested": true,
+    "demo_dataset": "sales_transactions",
+    "rules_applied_count": 11
+  },
+  "ai_report": {
+    "executive_summary": "This dataset scored 74.63/100 with 10 detected issue(s), including 1 critical and 5 high-severity finding(s). The most visible affected columns include discount_pct, order_date, order_total, transaction_id.",
+    "risk_interpretation": "Prioritize critical and high-severity findings because they can distort KPIs, joins, filters, and downstream models.",
+    "cleaning_recommendations": "Investigate key generation and deduplicate or repair keys at source. Standardise 'order_date' to ISO 8601 format (YYYY-MM-DD). Found 3 distinct date format patterns. Deduplicate rows keeping the appropriate occurrence and investigate source pipeline. Column 'order_total' has 91 values outside the expected range (negative values in monetary field). Review for data entry errors or unit mismatches. Column 'discount_pct' has 13 values outside the expected range (percentage outside 0-100). Review for data entry errors or unit mismatches. Found 842 rows where 'order_date' is after 'ship_date'. Review for data entry errors or migration artifacts.",
+    "dashboard_impact": "Resolving these findings improves dashboard trust, metric consistency, and model feature reliability.",
+    "generated_at": "2026-05-29T00:00:00+00:00",
+    "model": "llama-3.3-70b-versatile",
+    "source": "local",
+    "warning": "Bundled demo fallback; configure VITE_BACKEND_URL to run the live backend pipeline."
+  }
+}

@@ -1,0 +1,516 @@
+{
+  "audit_id": "demo-customer_master",
+  "dataset": {
+    "filename": "customer_master.csv",
+    "row_count": 5000,
+    "column_count": 8,
+    "uploaded_at": "2026-05-29T00:00:00+00:00"
+  },
+  "profile_stats": {
+    "customer_id": {
+      "name": "customer_id",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 3302,
+      "top_values": [
+        {
+          "value": "C100411",
+          "count": 12,
+          "pct": 0.24
+        },
+        {
+          "value": "C100372",
+          "count": 10,
+          "pct": 0.2
+        },
+        {
+          "value": "C100248",
+          "count": 9,
+          "pct": 0.18
+        },
+        {
+          "value": "C100416",
+          "count": 9,
+          "pct": 0.18
+        },
+        {
+          "value": "C100082",
+          "count": 9,
+          "pct": 0.18
+        }
+      ],
+      "numeric_summary": null
+    },
+    "first_name": {
+      "name": "first_name",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 10,
+      "top_values": [
+        {
+          "value": "Riley",
+          "count": 534,
+          "pct": 10.68
+        },
+        {
+          "value": "Morgan",
+          "count": 530,
+          "pct": 10.6
+        },
+        {
+          "value": "Jamie",
+          "count": 528,
+          "pct": 10.56
+        },
+        {
+          "value": "Casey",
+          "count": 521,
+          "pct": 10.42
+        },
+        {
+          "value": "Jordan",
+          "count": 517,
+          "pct": 10.34
+        }
+      ],
+      "numeric_summary": null
+    },
+    "last_name": {
+      "name": "last_name",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 10,
+      "top_values": [
+        {
+          "value": "Davis",
+          "count": 551,
+          "pct": 11.02
+        },
+        {
+          "value": "Miller",
+          "count": 538,
+          "pct": 10.76
+        },
+        {
+          "value": "Garcia",
+          "count": 514,
+          "pct": 10.28
+        },
+        {
+          "value": "Johnson",
+          "count": 508,
+          "pct": 10.16
+        },
+        {
+          "value": "Patel",
+          "count": 504,
+          "pct": 10.08
+        }
+      ],
+      "numeric_summary": null
+    },
+    "email": {
+      "name": "email",
+      "inferred_type": "string",
+      "null_count": 2068,
+      "null_pct": 41.36,
+      "unique_count": 2453,
+      "top_values": [
+        {
+          "value": "reese.wilson19@example.com",
+          "count": 2,
+          "pct": 0.04
+        },
+        {
+          "value": "taylor.brown3843@example.com",
+          "count": 2,
+          "pct": 0.04
+        },
+        {
+          "value": "riley.davis3306@example.com",
+          "count": 2,
+          "pct": 0.04
+        },
+        {
+          "value": "casey.patel3813@example.com",
+          "count": 2,
+          "pct": 0.04
+        },
+        {
+          "value": "jordan.brown1817@example.com",
+          "count": 2,
+          "pct": 0.04
+        }
+      ],
+      "numeric_summary": null
+    },
+    "country": {
+      "name": "country",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 17,
+      "top_values": [
+        {
+          "value": "United States",
+          "count": 1828,
+          "pct": 36.56
+        },
+        {
+          "value": "United Kingdom",
+          "count": 457,
+          "pct": 9.14
+        },
+        {
+          "value": "Australia",
+          "count": 416,
+          "pct": 8.32
+        },
+        {
+          "value": "Canada",
+          "count": 402,
+          "pct": 8.04
+        },
+        {
+          "value": "Mexico",
+          "count": 385,
+          "pct": 7.7
+        }
+      ],
+      "numeric_summary": null
+    },
+    "age": {
+      "name": "age",
+      "inferred_type": "integer",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 76,
+      "top_values": [
+        {
+          "value": "18",
+          "count": 106,
+          "pct": 2.12
+        },
+        {
+          "value": "71",
+          "count": 100,
+          "pct": 2.0
+        },
+        {
+          "value": "64",
+          "count": 95,
+          "pct": 1.9
+        },
+        {
+          "value": "70",
+          "count": 93,
+          "pct": 1.86
+        },
+        {
+          "value": "79",
+          "count": 90,
+          "pct": 1.8
+        }
+      ],
+      "numeric_summary": {
+        "min": 18.0,
+        "q1": 34.0,
+        "median": 50.0,
+        "mean": 50.1466,
+        "q3": 67.0,
+        "max": 145.0,
+        "std": 19.55639023234564
+      }
+    },
+    "annual_revenue": {
+      "name": "annual_revenue",
+      "inferred_type": "string",
+      "null_count": 85,
+      "null_pct": 1.7,
+      "unique_count": 3937,
+      "top_values": [
+        {
+          "value": "$125,500",
+          "count": 80,
+          "pct": 1.6
+        },
+        {
+          "value": "$45,000",
+          "count": 78,
+          "pct": 1.56
+        },
+        {
+          "value": "266510",
+          "count": 4,
+          "pct": 0.08
+        },
+        {
+          "value": "380711",
+          "count": 3,
+          "pct": 0.06
+        },
+        {
+          "value": "443573",
+          "count": 3,
+          "pct": 0.06
+        }
+      ],
+      "numeric_summary": null
+    },
+    "account_status": {
+      "name": "account_status",
+      "inferred_type": "string",
+      "null_count": 0,
+      "null_pct": 0.0,
+      "unique_count": 3,
+      "top_values": [
+        {
+          "value": "Prospect",
+          "count": 1699,
+          "pct": 33.98
+        },
+        {
+          "value": "Active",
+          "count": 1668,
+          "pct": 33.36
+        },
+        {
+          "value": "Inactive",
+          "count": 1633,
+          "pct": 32.66
+        }
+      ],
+      "numeric_summary": null
+    }
+  },
+  "rule_results": [
+    {
+      "rule_id": "duplicate_key",
+      "rule_name": "Duplicate Key Check",
+      "category": "uniqueness",
+      "affected_columns": [
+        "customer_id"
+      ],
+      "affected_count": 1698,
+      "affected_pct": 33.96,
+      "severity": "Critical",
+      "description": "Column 'customer_id' has 1698 non-unique key values.",
+      "suggested_fix": "Investigate key generation and deduplicate or repair keys at source.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:12.779079+00:00"
+    },
+    {
+      "rule_id": "duplicate_rows",
+      "rule_name": "Duplicate Row Check",
+      "category": "uniqueness",
+      "affected_columns": [],
+      "affected_count": 1694,
+      "affected_pct": 33.88,
+      "severity": "Critical",
+      "description": "Found 1694 exact duplicate rows (33.88% of dataset).",
+      "suggested_fix": "Deduplicate rows keeping the appropriate occurrence and investigate source pipeline.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:12.778327+00:00"
+    },
+    {
+      "rule_id": "missing_values",
+      "rule_name": "Missing Value Check",
+      "category": "completeness",
+      "affected_columns": [
+        "email"
+      ],
+      "affected_count": 2068,
+      "affected_pct": 41.36,
+      "severity": "Critical",
+      "description": "Column 'email' has 41.36% missing values (2068 rows).",
+      "suggested_fix": "Impute or inspect upstream source for missing values.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:12.896278+00:00"
+    },
+    {
+      "rule_id": "inconsistent_category",
+      "rule_name": "Inconsistent Category Check",
+      "category": "consistency",
+      "affected_columns": [
+        "country"
+      ],
+      "affected_count": 11,
+      "affected_pct": 0.22,
+      "severity": "High",
+      "description": "Column 'country' has 1 variant cluster(s) with 11 non-canonical value(s).",
+      "suggested_fix": "Standardise 'country' to one canonical label set before joins, grouping, and dashboard filters.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:12.981695+00:00"
+    },
+    {
+      "rule_id": "numeric_range",
+      "rule_name": "Numeric Range Check",
+      "category": "accuracy",
+      "affected_columns": [
+        "age"
+      ],
+      "affected_count": 18,
+      "affected_pct": 0.36,
+      "severity": "High",
+      "description": "Column 'age' has 18 value(s) outside expected range (age outside 0-120).",
+      "suggested_fix": "Column 'age' has 18 values outside the expected range (age outside 0-120). Review for data entry errors or unit mismatches.",
+      "metadata": {
+        "range_description": "age outside 0-120"
+      },
+      "timestamp": "2026-05-29T20:49:13.001061+00:00"
+    },
+    {
+      "rule_id": "invalid_type",
+      "rule_name": "Invalid Data Type Check",
+      "category": "invalid_type",
+      "affected_columns": [
+        "annual_revenue"
+      ],
+      "affected_count": 158,
+      "affected_pct": 3.16,
+      "severity": "Medium",
+      "description": "Column 'annual_revenue' has 3.16% values that do not match the inferred type 'integer'.",
+      "suggested_fix": "Correct or cleanse invalid values so they conform to the expected column type.",
+      "metadata": {
+        "expected_type": "integer"
+      },
+      "timestamp": "2026-05-29T20:49:13.010777+00:00"
+    },
+    {
+      "rule_id": "missing_values",
+      "rule_name": "Missing Value Check",
+      "category": "completeness",
+      "affected_columns": [
+        "annual_revenue"
+      ],
+      "affected_count": 85,
+      "affected_pct": 1.7,
+      "severity": "Low",
+      "description": "Column 'annual_revenue' has 1.7% missing values (85 rows).",
+      "suggested_fix": "Impute or inspect upstream source for missing values.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:13.003572+00:00"
+    },
+    {
+      "rule_id": "outliers",
+      "rule_name": "Outlier Detection Check",
+      "category": "outliers",
+      "affected_columns": [
+        "age"
+      ],
+      "affected_count": 18,
+      "affected_pct": 0.36,
+      "severity": "Low",
+      "description": "Column 'age' has 0.36% outlier values (18 rows).",
+      "suggested_fix": "Inspect outliers and decide whether to correct, remove, or preserve them based on business context.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:12.996852+00:00"
+    },
+    {
+      "rule_id": "text_formatting",
+      "rule_name": "Text Formatting Check",
+      "category": "conformity",
+      "affected_columns": [
+        "country"
+      ],
+      "affected_count": 281,
+      "affected_pct": 5.62,
+      "severity": "Low",
+      "description": "Column 'country' has 281 value(s) with leading/trailing whitespace or ALL CAPS.",
+      "suggested_fix": "Column 'country' has 281 values with formatting issues (leading/trailing whitespace or ALL CAPS). Strip whitespace before joins and standardise case.",
+      "metadata": {},
+      "timestamp": "2026-05-29T20:49:12.984855+00:00"
+    }
+  ],
+  "scoring": {
+    "overall_score": 58.11,
+    "component_scores": {
+      "missing_value": {
+        "p_i": 41.36,
+        "weight": 25.0,
+        "renormalized_weight": 25.0,
+        "weighted_deduction": 10.34,
+        "component_health": 58.64
+      },
+      "duplicate_rows": {
+        "p_i": 100.0,
+        "weight": 20.0,
+        "renormalized_weight": 20.0,
+        "weighted_deduction": 20.0,
+        "component_health": 0.0
+      },
+      "invalid_type": {
+        "p_i": 3.16,
+        "weight": 20.0,
+        "renormalized_weight": 20.0,
+        "weighted_deduction": 0.632,
+        "component_health": 96.84
+      },
+      "outliers": {
+        "p_i": 0.18,
+        "weight": 10.0,
+        "renormalized_weight": 10.0,
+        "weighted_deduction": 0.018,
+        "component_health": 99.82
+      },
+      "critical_failures": {
+        "p_i": 70.0,
+        "weight": 15.0,
+        "renormalized_weight": 15.0,
+        "weighted_deduction": 10.5,
+        "component_health": 30.0
+      },
+      "business_rule_violations": {
+        "p_i": 3.97,
+        "weight": 10.0,
+        "renormalized_weight": 10.0,
+        "weighted_deduction": 0.397,
+        "component_health": 96.03
+      }
+    },
+    "component_weights": {
+      "missing_value": 25.0,
+      "duplicate_rows": 20.0,
+      "invalid_type": 20.0,
+      "outliers": 10.0,
+      "critical_failures": 15.0,
+      "business_rule_violations": 10.0
+    },
+    "calculation_detail": {
+      "weighted_penalty_sum": 41.887,
+      "penalties": {
+        "missing_value": 41.36,
+        "duplicate_rows": 100.0,
+        "invalid_type": 3.16,
+        "outliers": 0.18,
+        "critical_failures": 70.0,
+        "business_rule_violations": 3.97
+      },
+      "severity_multiplier": {
+        "Critical": 3.0,
+        "High": 2.0,
+        "Medium": 1.0,
+        "Low": 0.5
+      }
+    }
+  },
+  "metadata": {
+    "notes": "profile computed (basic)",
+    "ai_requested": true,
+    "demo_dataset": "customer_master",
+    "rules_applied_count": 11
+  },
+  "ai_report": {
+    "executive_summary": "This dataset scored 58.11/100 with 9 detected issue(s), including 3 critical and 2 high-severity finding(s). The most visible affected columns include age, country, customer_id, email.",
+    "risk_interpretation": "Prioritize critical and high-severity findings because they can distort KPIs, joins, filters, and downstream models.",
+    "cleaning_recommendations": "Investigate key generation and deduplicate or repair keys at source. Deduplicate rows keeping the appropriate occurrence and investigate source pipeline. Impute or inspect upstream source for missing values. Standardise 'country' to one canonical label set before joins, grouping, and dashboard filters. Column 'age' has 18 values outside the expected range (age outside 0-120). Review for data entry errors or unit mismatches. Correct or cleanse invalid values so they conform to the expected column type.",
+    "dashboard_impact": "Resolving these findings improves dashboard trust, metric consistency, and model feature reliability.",
+    "generated_at": "2026-05-29T00:00:00+00:00",
+    "model": "llama-3.3-70b-versatile",
+    "source": "local",
+    "warning": "Bundled demo fallback; configure VITE_BACKEND_URL to run the live backend pipeline."
+  }
+}
