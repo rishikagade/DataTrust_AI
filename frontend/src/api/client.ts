@@ -4,6 +4,7 @@ import salesTransactionsDemo from '../data/demo-audits/sales_transactions.json'
 
 const configuredBackendUrl = import.meta.env.VITE_BACKEND_URL as string | undefined
 const BACKEND_URL = (configuredBackendUrl || (import.meta.env.DEV ? 'http://localhost:8000' : '')).replace(/\/$/, '')
+const USE_LIVE_DEMOS = import.meta.env.DEV || import.meta.env.VITE_USE_LIVE_DEMOS === 'true'
 
 const demoDatasets = [
   { name: 'customer_master', label: 'Customer master', description: 'Duplicate keys, missing emails, category variants.' },
@@ -63,6 +64,7 @@ export const api = {
   },
   getAuditById: async (auditId: string) => {
     const bundledDemoName = auditId.startsWith('demo-') ? auditId.replace(/^demo-/, '') : ''
+    if (bundledDemoName && !USE_LIVE_DEMOS) return loadBundledDemo(bundledDemoName)
     if (!BACKEND_URL && bundledDemoName) return loadBundledDemo(bundledDemoName)
 
     const res = await request(`/audit/${encodeURIComponent(auditId)}`)
@@ -73,14 +75,14 @@ export const api = {
     return res.json()
   },
   demoList: async () => {
-    if (!BACKEND_URL) return demoDatasets
+    if (!BACKEND_URL || !USE_LIVE_DEMOS) return demoDatasets
 
     const res = await request('/demo')
     if (!res.ok) throw new Error(await res.text())
     return res.json()
   },
   demo: async (name: string) => {
-    if (!BACKEND_URL) return loadBundledDemo(name)
+    if (!BACKEND_URL || !USE_LIVE_DEMOS) return loadBundledDemo(name)
 
     try {
       const res = await request(`/demo/${encodeURIComponent(name)}`)
