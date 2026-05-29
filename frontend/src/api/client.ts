@@ -1,3 +1,7 @@
+import customerMasterDemo from '../data/demo-audits/customer_master.json'
+import hrEmployeesDemo from '../data/demo-audits/hr_employees.json'
+import salesTransactionsDemo from '../data/demo-audits/sales_transactions.json'
+
 const configuredBackendUrl = import.meta.env.VITE_BACKEND_URL as string | undefined
 const BACKEND_URL = (configuredBackendUrl || (import.meta.env.DEV ? 'http://localhost:8000' : '')).replace(/\/$/, '')
 
@@ -7,6 +11,12 @@ const demoDatasets = [
   { name: 'hr_employees', label: 'HR employees', description: 'Sparse termination dates, salary outliers, ID conflicts.' },
 ]
 
+const bundledDemoAudits: Record<string, any> = {
+  customer_master: customerMasterDemo,
+  sales_transactions: salesTransactionsDemo,
+  hr_employees: hrEmployeesDemo,
+}
+
 async function request(path: string, options?: RequestInit) {
   if (!BACKEND_URL) {
     throw new Error('Backend URL is not configured for this deployment.')
@@ -15,9 +25,9 @@ async function request(path: string, options?: RequestInit) {
 }
 
 async function loadBundledDemo(name: string) {
-  const res = await fetch(`/demo-audits/${encodeURIComponent(name)}.json`)
-  if (!res.ok) throw new Error('Bundled demo is not available.')
-  return res.json()
+  const audit = bundledDemoAudits[name]
+  if (!audit) throw new Error('Bundled demo is not available.')
+  return audit
 }
 
 function localAgentReply(message: string, auditContext: any) {
