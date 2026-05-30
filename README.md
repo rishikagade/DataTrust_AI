@@ -156,31 +156,41 @@ Uploaded files are processed in memory and discarded after the audit completes. 
 
 ---
 
-## What This Project Demonstrates
+## Future Scope
 
-Each section highlights a different capability area. Relevant to roles in data analysis, BI, analytics engineering, data governance, and AI-assisted tooling.
+The current build covers CSV-based auditing with 11 validation rules and a rule-based AI fallback. The following represents the planned direction for future versions.
 
-**Building the audit pipeline**
-- Built a full-stack data quality auditor (FastAPI + React) that runs 11 deterministic validation rules across uploaded CSV datasets — detecting missing values, duplicate keys, type mismatches, mixed date formats, referential integrity violations, and outliers — and computes a weighted 0–100 quality score with severity-ranked findings
-- Designed a scoring engine where every point deducted traces back to a named rule result, so the quality score and the issue list are always consistent — a dataset with zero findings always scores 100
+**Saved audit history and comparison**
 
-**Integrating AI responsibly**
-- Designed a provider-agnostic AI layer using the OpenAI-compatible chat completions interface, allowing any provider (Groq, OpenAI, Together AI) to be configured via environment variables without touching the codebase
-- Built an intent-aware conversational audit agent that classifies each user question (prioritisation, score explanation, business impact, remediation) and routes it to a targeted prompt — producing column-specific, count-referencing answers rather than generic advice
-- Designed a smart rule-based fallback that produces data-grounded responses from the audit JSON when no API key is present — making the project fully functional and demonstrable without any external dependency
-- Implemented a recursive sanitisation layer that strips all raw data fields before every AI call, enforced by automated tests — the model receives only aggregated statistics regardless of which provider is configured
+Store audit sessions so teams can track data quality over time — compare this week's export against last week's, identify regressions, and trend quality scores across pipeline runs. A comparison view showing what changed between two audits of the same dataset would turn this from a one-shot tool into a continuous monitoring layer.
 
-**Translating findings for stakeholders**
-- Designed an AI-generated four-section audit report (executive summary, risk interpretation, cleaning recommendations, dashboard impact) that translates deterministic rule findings into plain-English business narratives — downloadable as a governance-ready PDF
-- Built a completeness heatmap, column risk ranking table, and severity distribution chart that communicate dataset readiness to both technical and non-technical audiences at a glance
+**Live database connections**
 
-**Pre-report and pre-model validation**
-- Automated pre-dashboard data validation across 11 quality categories, reducing manual CSV inspection time and creating a documented audit trail before data is used in reporting or model training
-- Validated the tool against three purpose-built datasets (5,000-row customer data, 15,000-row sales transactions, 1,200-row HR records) with intentionally seeded quality problems — confirming all expected rule categories fire and scores fall within predicted ranges
+Rather than requiring a CSV export, connect directly to PostgreSQL, BigQuery, Snowflake, or Redshift and run audits against live tables. This would make DataTrust AI useful as a pre-deployment data validation gate inside a data pipeline, not just as an ad-hoc upload tool.
 
-**Governance and auditability**
-- Implemented a downloadable PDF audit report with timestamped findings, rule-level traceability, and a score breakdown — producing a governance artifact that can be attached to data tickets or included in compliance documentation
-- Architected the audit result as a single canonical JSON object consumed by the dashboard, AI summary, PDF export, and agent — ensuring the issue list, score, and all UI components are always derived from the same source of truth
+**Configurable business rules**
+
+Allow users to define custom validation rules through a UI — for example, "revenue must be positive", "status must be one of Active/Inactive/Pending", or "customer_id must match the format CUS-XXXXX". Right now the rules engine covers structural and statistical checks; custom business logic requires code changes.
+
+**Scheduled audits and alerting**
+
+Run audits on a schedule against a connected database or an S3-hosted file, and send alerts when the quality score drops below a configurable threshold. This is the feature that turns the tool from a manual audit tool into a data observability layer.
+
+**Role-based views**
+
+Separate the analyst view (full technical detail, column profiles, rule-level findings) from the executive view (score, tier, top three risks, recommended actions in plain English). Governance teams and business stakeholders need different levels of detail from the same audit result.
+
+**AI-powered cleaning suggestions with code output**
+
+When a user asks the agent how to fix an issue, generate the actual pandas or SQL code to perform the fix — not just a description of what to do. For example, a duplicate key issue on customer_id would produce a ready-to-run deduplication snippet.
+
+**Multi-format support**
+
+Extend beyond CSV to support Excel (.xlsx), JSON, and Parquet files — the formats data teams actually work with in production pipelines.
+
+**Data lineage annotations**
+
+Allow users to annotate where a dataset came from (source system, extraction date, pipeline name) and attach those annotations to the audit report, creating a lightweight lineage trail alongside the quality findings.
 
 ---
 
