@@ -2,7 +2,7 @@
 
 > Rules detect the issues. AI explains the business impact.
 
-**[Live Demo](https://data-trust-bykzuxzo1-rishikagades-projects.vercel.app)** · [Report an Issue](https://github.com/rishikagade/DataTrust_AI/issues)
+**[Live Demo](https://data-trust-7dmrekaoy-rishikagades-projects.vercel.app/audit/45216c78-3b5b-4641-99b7-69731bd22825)** · [Report an Issue](https://github.com/rishikagade/DataTrust_AI/issues)
 
 ---
 
