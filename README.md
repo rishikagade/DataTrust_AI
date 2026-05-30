@@ -1,253 +1,188 @@
-# DataTrust AI - Automated Data Quality Auditor
+# DataTrust AI — Automated Data Quality Auditor
 
 > Rules detect the issues. AI explains the business impact.
 
-<!-- Add a demo GIF here after recording a 30-second screen capture. -->
-<!-- Recommended flow: load customer_master demo -> dashboard -> AI report -> agent chat. -->
+**[Live Demo](https://data-trust-bykzuxzo1-rishikagades-projects.vercel.app)** · [Report an Issue](https://github.com/rishikagade/DataTrust_AI/issues)
+
+---
 
 ## What It Does
 
-DataTrust AI helps analysts catch data quality problems before a dataset reaches dashboards, models, or executive reporting. The backend profiles uploaded CSV/TSV files, runs 11 deterministic validation rules, and computes a weighted 0-100 quality score. The key differentiator is privacy-safe AI: rules detect the issues, Groq explains the business impact, and raw CSV rows never reach the AI model.
+Data teams waste hours manually checking datasets before analysis. Dashboards built on unchecked data produce misleading KPIs. DataTrust AI automates the audit — upload a CSV, get a scored quality report in seconds, and optionally connect any OpenAI-compatible AI provider to get plain-English explanations of what is wrong and how to fix it.
 
-## Live Demo
+**The core design:** deterministic rules find the issues. AI explains the business impact. Raw data rows never reach the model. The full tool works without any API key.
 
-Hosted deployment URL: coming soon after Vercel and Render deployment.
+---
 
-## Screenshots
+## Key Features
 
-| Dashboard | Column Profile |
-|---|---|
-| ![Dashboard](docs/screenshots/dashboard.svg) | ![Column Profile](docs/screenshots/column-profile.svg) |
+- **11 automated validation rules** — completeness, uniqueness, type validity, outliers, date format consistency, referential integrity, and more
+- **Weighted 0–100 quality score** — with severity tiers (Critical / High / Medium / Low) and a per-category breakdown showing exactly where points were lost
+- **Provider-agnostic AI layer** — works with Groq, OpenAI, Together AI, or any OpenAI-compatible API via three environment variables. No key needed — the agent uses smart rule-based responses by default
+- **Privacy-safe AI integration** — the AI model receives only aggregated statistics (column names, counts, percentages). No CSV rows are ever sent to any model
+- **Conversational audit agent** — ask plain-English questions about your specific findings and get column-specific, data-grounded answers
+- **Downloadable PDF audit report** — governance-ready document suitable for attaching to data tickets or sharing with stakeholders
+- **Three built-in demo datasets** — customer data, sales transactions, and HR records with intentional quality problems seeded in
 
-| AI Report | Audit Agent |
-|---|---|
-| ![AI Report](docs/screenshots/ai-report.svg) | ![Audit Agent](docs/screenshots/audit-agent.svg) |
-
-## How The AI Integration Works
-
-The core design principle: **rules detect the issues, AI explains the business impact.**
-
-The backend runs 11 deterministic validation rules against the uploaded dataset. Each rule returns structured findings: which column is affected, how many rows are affected, what percentage of the dataset is affected, the severity level, and a suggested fix. These findings are assembled into a canonical audit JSON object that powers the frontend, exports, PDF report, AI summary, and AI agent.
-
-Before any AI call, a sanitization step strips fields that could contain raw data values, including `sample_values`, `top_values`, `raw_values`, and `row_data`. The AI model receives only aggregated statistics: column names, counts, percentages, severity labels, and suggested fixes. No CSV rows ever reach the AI.
-
-The AI layer has two jobs:
-
-1. **Static report** - converts structured findings into a four-section business-readable document: executive summary, risk interpretation, cleaning recommendations, and dashboard impact.
-2. **Audit agent** - answers conversational questions about the specific audit findings using the same sanitized context injected as a system prompt.
-
-### AI Provider
-
-The agent uses **Groq** serving Llama 3.3 70B. Groq has a free tier and works well for local portfolio demos. If `GROQ_API_KEY` is not set, the agent uses a smart rule-based fallback that still produces data-specific answers from the audit JSON, referencing actual column names, row counts, percentages, and severity levels. The project is fully demonstrable without an API key.
-
-### Why Not OpenAI?
-
-Groq's free tier makes the project easier for anyone to clone and reproduce without a paid API account. The Groq API uses a familiar chat-completions shape, so the integration stays simple while keeping the project economical for an open-source portfolio build.
-
-## Architecture
-
-```text
-CSV Upload
-    |
-    v
-Profiler (pandas)
-    |  per-column stats: null_pct, unique_count, inferred_type, numeric_summary
-    v
-Rules Engine (11 rules)
-    |  RuleResult[]: severity, affected_column, affected_count, suggested_fix
-    v
-Scoring Engine
-    |  weighted composite score: missing(25%) + duplicates(20%) + types(20%)
-    |                           + outliers(10%) + critical(15%) + rules(10%)
-    v
-AuditJSON --------------------------------------------------------------+
-    |                                                                  |
-    v                                                                  v
-AI Summary (Groq)                                           AI Agent (Groq)
-sanitize -> prompt -> narrative                             sanitize -> system prompt
-four sections returned                                      + conversation history
-    |                                                                  |
-    +-----------------------------+------------------------------------+
-                                  v
-                           React Frontend
-             Dashboard | Column Profile | Issue List | AI Report
-                    Download Exports | Chat Agent
-```
+---
 
 ## Tech Stack
 
-| Layer | Technology | Why |
-|---|---|---|
-| Frontend | React + TypeScript | Component model suits the multi-page dashboard structure |
-| Styling | Tailwind CSS | Utility classes keep styling consistent without a custom design system |
-| Charts | Recharts | Composable React-native charting without D3 complexity |
-| State | Zustand | Lightweight global store without Redux ceremony |
-| Routing | React Router v6 | Client-side navigation for dashboard subpages |
-| Backend | FastAPI | Typed Python API with automatic OpenAPI docs and fast iteration |
-| Data processing | pandas | Industry-standard tabular profiling and validation |
-| AI provider | Groq (Llama 3.3 70B) | Free tier, low latency, strong enough for audit explanations |
-| PDF export | WeasyPrint | Server-side HTML-to-PDF for stakeholder-ready reports |
-| Frontend deploy | Vercel | Free-tier static hosting and preview deployments |
-| Backend deploy | Render | Python web service deployment with managed environment variables |
-| Tests | pytest + Vitest | Backend service/API coverage and frontend component coverage |
+| Layer | Technology |
+|---|---|
+| Frontend | React + TypeScript, Tailwind CSS, Recharts, Zustand, React Router v6 |
+| Backend | Python, FastAPI, pandas |
+| AI | Any OpenAI-compatible API (Groq, OpenAI, Together AI, etc.) — optional |
+| PDF Export | WeasyPrint |
+| Deploy | Vercel (frontend) + Render (backend) |
+| Tests | pytest (backend) · Vitest (frontend) |
 
-## Rules Engine
+---
 
-| # | Rule | Category | What It Checks | Severity Thresholds |
-|---|---|---|---|---|
-| 1 | Missing Value Check | Completeness | Null/empty values per column | Low <=5%, Medium >5%, High >15%, Critical >35% |
-| 2 | Duplicate Row Check | Uniqueness | Exact duplicate rows | Low <=0.5%, Medium >0.5%, High >2%, Critical >5% |
-| 3 | Duplicate Key Check | Uniqueness | Non-unique ID column values | Critical when any non-unique IDs exist |
-| 4 | Invalid Type Check | Validity | Values not matching inferred type | Low <=2%, Medium >2%, High >10%, Critical >20% |
-| 5 | Outlier Detection | Accuracy | IQR-based extreme numeric values | Low <=5%, Medium >5%, High >15% |
-| 6 | Category Consistency | Consistency | Same category in variant forms | Low 1-2 clusters, Medium 3-5, High >5 or many variants |
-| 7 | Date Format Check | Conformity | Mixed or unparseable date formats | Low 2 patterns, Medium 3 patterns, High >=4 patterns or parse failures |
-| 8 | Numeric Range Check | Accuracy | Domain-inappropriate values by column name | Low 1-2, Medium 3-10, High >10 or >1% |
-| 9 | Text Formatting | Conformity | Leading/trailing whitespace and unexpected caps | Low by default, Medium when >=10% |
-| 10 | Freshness Check | Timeliness | Most recent date value is significantly old | Low 30-60d, Medium 61-180d, High >180d |
-| 11 | Referential Integrity | Integrity | Chronologically inverted column pairs | Low 1-2, Medium 3-10, High >10 or >0.5% |
+## How the AI Integration Works
 
-## Scoring Methodology
+Before any AI call, a sanitisation function strips all raw-value fields (`sample_values`, `top_values`, `raw_values`, `row_data`) from the audit result. The AI model only ever sees structured aggregate findings:
 
-**Formula:** `score = max(0, round(100 - sum(weight_i * penalty_i / 100)))`
+```
+Dataset: customer_master.csv  |  Rows: 5,000  |  Score: 58/100 (High Risk)
 
-| Component | Weight | Penalty Calculation |
-|---|---:|---|
-| Missing values | 25% | Worst missing-value rule percentage |
-| Duplicate rows | 20% | Duplicate row percentage multiplied by severity multiplier |
-| Invalid type | 20% | Worst invalid-type or date-format percentage multiplied by severity multiplier |
-| Outliers | 10% | Worst outlier percentage multiplied by severity multiplier |
-| Critical failures | 15% | Aggregate severity-weighted percentage of Critical findings, capped |
-| Business rules | 10% | Severity-weighted total across ranges, integrity, freshness, text, and category rules |
+[Critical] Duplicate Key Check    | customer_id  | 1,247 rows (24.9%)
+[High]     Missing Value Check    | email        | 2,068 rows (41.4%)
+[High]     Duplicate Row Check    | all columns  | 847 rows (16.9%)
+[Medium]   Category Consistency   | country      | 11 label variants
+```
 
-**Severity multipliers:** Critical x3, High x2, Medium x1, Low x0.5.
+The rules engine detects. The AI translates. No exceptions.
 
-**Score tiers:** 90-100 Excellent, 75-89 Good, 60-74 Needs Review, below 60 High Risk.
+### Provider Design
 
-Important consistency rule: if a non-empty dataset has zero rule findings, it scores exactly 100/100. Deductions are derived from visible `RuleResult` objects so the score and issue list cannot disagree.
+The AI layer is built on the OpenAI chat completions interface — an open standard supported by Groq, OpenAI, Together AI, Mistral, and many others. Configure your preferred provider with three environment variables and the agent works immediately. No code changes needed.
+
+**Without any key**, the agent uses a smart rule-based fallback that produces data-specific answers directly from the audit JSON — referencing actual column names, row counts, and severity levels. The full dashboard, scoring, PDF export, and all 11 validation rules work without any AI provider configured.
+
+---
+
+## Architecture
+
+```
+CSV Upload → Profiler → Rules Engine (11 rules) → Scoring Engine
+                                                        ↓
+                                                   AuditJSON
+                                                  ↙         ↘
+                                          AI Summary      AI Agent
+                                       (any provider    (any provider
+                                        or rule-based)   or rule-based)
+                                                  ↘         ↙
+                                              React Frontend
+                              Dashboard · Issues · Report · Downloads · Chat
+```
+
+---
 
 ## Running Locally
 
-Prerequisites: Python 3.11+, Node.js 18+, Git.
+**Prerequisites:** Python 3.11+, Node.js 18+
 
 ```bash
-# 1. Clone the repository
-git clone https://github.com/your-username/datatrust-ai.git
-cd datatrust-ai
-
-# 2. Set up environment variables
+# Clone and configure
+git clone https://github.com/rishikagade/DataTrust_AI.git
+cd DataTrust_AI
 cp .env.example .env
-# Optional: add your GROQ_API_KEY from https://console.groq.com
+# Optional: add AI_API_KEY to .env to enable AI-powered responses
+# Without it, the agent uses smart rule-based responses — fully functional
 
-# 3. Install and start the backend
+# Start the backend
 cd backend
-python3 -m venv .venv
-source .venv/bin/activate
+python3 -m venv .venv && source .venv/bin/activate
 pip install -r requirements.txt
-uvicorn app.main:app --reload --host 127.0.0.1 --port 8000
-```
+uvicorn app.main:app --reload --port 8000
 
-In a new terminal:
-
-```bash
+# Start the frontend (new terminal)
 cd frontend
 npm install
-VITE_BACKEND_URL=http://127.0.0.1:8000 npm run dev -- --host 127.0.0.1 --port 5173
+npm run dev
 ```
 
-Open:
+Open `http://localhost:5173` — or click **Try Demo** on the landing page to load a prebuilt audit with real findings.
 
-```text
-http://127.0.0.1:5173
-```
+### Enabling AI responses (optional)
 
-Optional: generate sample datasets.
+Set these three variables in your `.env` file:
 
 ```bash
-python3 scripts/generate_sample_datasets.py
+# Groq (free tier — https://console.groq.com)
+AI_API_KEY=gsk_your_key_here
+AI_BASE_URL=https://api.groq.com/openai/v1
+AI_MODEL=llama-3.3-70b-versatile
+
+# OpenAI alternative
+# AI_API_KEY=sk_your_key_here
+# AI_BASE_URL=https://api.openai.com/v1
+# AI_MODEL=gpt-4o-mini
 ```
 
-Optional: run tests.
-
-```bash
-cd backend
-.venv/bin/python -m pytest -q
-
-cd ../frontend
-npm test
-npm run build
-```
-
-## Deployment
-
-### Frontend (Vercel)
-
-1. Push the repository to GitHub.
-2. Go to [vercel.com](https://vercel.com) and import the repository.
-3. If deploying from the root, use the included root `vercel.json`. If deploying from `frontend/`, use `frontend/vercel.json`.
-4. Add this environment variable in the Vercel dashboard:
-   - `VITE_BACKEND_URL` -> your deployed backend URL, for example `https://datatrust-ai-backend.onrender.com`
-5. Deploy. The rewrite rule ensures React Router paths serve `index.html`.
-
-### Backend (Render)
-
-1. Go to [render.com](https://render.com) and create a new Web Service, or use the included `render.yaml`.
-2. Connect your GitHub repository.
-3. Set build command:
-   ```bash
-   pip install -r backend/requirements.txt
-   ```
-4. Set start command:
-   ```bash
-   uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
-   ```
-5. Add environment variables:
-   - `GROQ_API_KEY` -> your Groq key from `https://console.groq.com`
-   - `GROQ_MODEL` -> `llama-3.3-70b-versatile`
-   - `ALLOWED_ORIGINS` -> your Vercel frontend URL, for example `https://datatrust-ai.vercel.app`
-6. Deploy.
-
-Important: set `ALLOWED_ORIGINS` on the backend to exactly match your Vercel frontend URL. Without this, the browser will block frontend-to-backend calls due to CORS.
+---
 
 ## Sample Datasets
 
-| Dataset | Rows | Key Issues Seeded | Expected Score |
-|---|---:|---|---|
-| `customer_master.csv` | 5,000 | Duplicate `customer_id` values, missing `email`, duplicate rows, country variants, impossible ages, invalid revenue strings | 55-65 |
-| `sales_transactions.csv` | 15,000 | Mixed order date formats, ship-before-order rows, negative totals, category variants, discounts over 100, exact duplicates | 68-78 |
-| `hr_employees.csv` | 1,200 | Duplicate employee IDs, salary outliers, department code/name variants, sparse termination dates, hire-after-termination rows, status variants | 62-72 |
+Three datasets are included with intentionally seeded data quality problems:
 
-## Privacy Statement
+| Dataset | Rows | Issues Seeded |
+|---|---:|---|
+| `customer_master.csv` | 5,000 | Duplicate IDs, 34% null emails, duplicate rows, 11 country label variants, impossible ages, invalid revenue strings |
+| `sales_transactions.csv` | 15,000 | Mixed date formats, ship-before-order dates, negative order totals, category whitespace variants, discounts over 100% |
+| `hr_employees.csv` | 1,200 | Salary outliers, department code/name inconsistency, hire-after-termination rows, status case variants |
 
-Uploaded files are processed ephemerally by the backend audit pipeline. The app does not store CSV rows in a database. The AI model receives only sanitized aggregate findings: column names, row counts, percentages, severity labels, descriptions, and recommended fixes.
+---
 
-Raw data values, individual cell contents, and data rows are never included in AI prompts. This is enforced by `sanitize_audit_context`, which strips raw-value fields before every Groq call.
+## Tests
 
-## Known Limitations
+```bash
+# Backend — 33 tests
+cd backend && pytest -q
 
-- Very large CSV files may be slow or time out on free-tier hosting.
-- AI summaries are first drafts and should be reviewed before executive distribution.
-- IQR-based outlier detection can flag legitimate rare business cases.
-- Rule checks detect structural problems; they cannot prove real-world correctness.
-- The tool recommends fixes but never modifies source data.
+# Frontend — 7 tests
+cd frontend && npm test
 
-## Resume Bullets
+# Production build check
+cd frontend && npm run build
+```
 
-**Data Analyst**
+---
 
-- Built a full-stack automated data quality auditor with Python/FastAPI and React that profiles CSV datasets, runs 11 deterministic validation rules, and produces weighted 0-100 quality scores with severity-ranked findings.
-- Designed privacy-safe AI reporting with Groq, converting structured rule findings into business-readable summaries without sending raw data rows to the model.
-- Implemented an AI audit agent that answers plain-English questions about specific findings using actual column names, row counts, and percentages from the audit result.
+## Privacy
 
-**BI Analyst**
+Uploaded files are processed in memory and discarded after the audit completes. No CSV rows are stored in any database. When AI is enabled, the model receives only aggregated statistics — column names, counts, percentages, and severity labels. This is enforced by `sanitize_audit_context()`, which runs before every AI call and is covered by automated tests.
 
-- Developed an interactive data quality dashboard with severity distribution, missing-value analysis, score breakdowns, column risk ranking, completeness heatmaps, and exportable issue lists.
-- Automated pre-dashboard quality checks for duplicates, mixed date formats, invalid numeric ranges, category variants, outliers, and chronological integrity issues.
+---
 
-**Business Analyst**
+## What This Project Demonstrates
 
-- Built an end-to-end audit workflow that translates technical data quality findings into executive summaries, prioritized cleanup recommendations, dashboard risk explanations, and PDF reports.
-- Designed a conversational audit assistant that helps stakeholders understand which data issues matter first and how they affect reporting decisions.
+Each section highlights a different capability area. Relevant to roles in data analysis, BI, analytics engineering, data governance, and AI-assisted tooling.
+
+**Building the audit pipeline**
+- Built a full-stack data quality auditor (FastAPI + React) that runs 11 deterministic validation rules across uploaded CSV datasets — detecting missing values, duplicate keys, type mismatches, mixed date formats, referential integrity violations, and outliers — and computes a weighted 0–100 quality score with severity-ranked findings
+- Designed a scoring engine where every point deducted traces back to a named rule result, so the quality score and the issue list are always consistent — a dataset with zero findings always scores 100
+
+**Integrating AI responsibly**
+- Designed a provider-agnostic AI layer using the OpenAI-compatible chat completions interface, allowing any provider (Groq, OpenAI, Together AI) to be configured via environment variables without touching the codebase
+- Built an intent-aware conversational audit agent that classifies each user question (prioritisation, score explanation, business impact, remediation) and routes it to a targeted prompt — producing column-specific, count-referencing answers rather than generic advice
+- Designed a smart rule-based fallback that produces data-grounded responses from the audit JSON when no API key is present — making the project fully functional and demonstrable without any external dependency
+- Implemented a recursive sanitisation layer that strips all raw data fields before every AI call, enforced by automated tests — the model receives only aggregated statistics regardless of which provider is configured
+
+**Translating findings for stakeholders**
+- Designed an AI-generated four-section audit report (executive summary, risk interpretation, cleaning recommendations, dashboard impact) that translates deterministic rule findings into plain-English business narratives — downloadable as a governance-ready PDF
+- Built a completeness heatmap, column risk ranking table, and severity distribution chart that communicate dataset readiness to both technical and non-technical audiences at a glance
+
+**Pre-report and pre-model validation**
+- Automated pre-dashboard data validation across 11 quality categories, reducing manual CSV inspection time and creating a documented audit trail before data is used in reporting or model training
+- Validated the tool against three purpose-built datasets (5,000-row customer data, 15,000-row sales transactions, 1,200-row HR records) with intentionally seeded quality problems — confirming all expected rule categories fire and scores fall within predicted ranges
+
+**Governance and auditability**
+- Implemented a downloadable PDF audit report with timestamped findings, rule-level traceability, and a score breakdown — producing a governance artifact that can be attached to data tickets or included in compliance documentation
+- Architected the audit result as a single canonical JSON object consumed by the dashboard, AI summary, PDF export, and agent — ensuring the issue list, score, and all UI components are always derived from the same source of truth
+
+---
 
 ## License
 

@@ -57,7 +57,7 @@ AI layers
 - services/ai_agent.py — conversational agent handler
 
 Configuration
-- .env.example — GROQ_API_KEY, MAX_FILE_SIZE_MB, MODEL defaults
+- .env.example — AI_API_KEY, AI_BASE_URL, AI_MODEL defaults
 - docker-compose.yml — optional local dev stack
 
 Tests

@@ -7,7 +7,7 @@ import { AuditResult, ChatMessage } from '../types/audit'
 import { scoreTier } from '../utils/audit'
 
 type Props = { panelMode?: boolean; onClose?: () => void }
-type AgentProvider = 'groq' | 'groq_rate_limited' | 'local' | null
+type AgentProvider = 'ai' | 'rate_limited' | 'local' | null
 
 function generateChips(auditResult: AuditResult): string[] {
   const chips: string[] = []
@@ -39,15 +39,15 @@ function generateChips(auditResult: AuditResult): string[] {
 }
 
 function providerText(provider: AgentProvider) {
-  if (provider === 'groq') return 'Powered by Groq · Llama 3.3 70B  |  No raw data sent to AI'
-  if (provider === 'groq_rate_limited') return 'Groq rate limit reached — using rule-based responses  |  Try again in 30s'
+  if (provider === 'ai') return 'Powered by AI  |  No raw data sent to AI model'
+  if (provider === 'rate_limited') return 'AI rate limit reached — using rule-based responses  |  Try again shortly'
   if (provider === null) return 'Ask a question to connect the agent  |  No raw data is sent to AI'
-  return 'Using rule-based responses  |  Add GROQ_API_KEY for AI answers'
+  return 'Using rule-based responses  |  Add AI_API_KEY to .env for AI-powered answers'
 }
 
 function providerClasses(provider: AgentProvider) {
-  if (provider === 'groq') return 'border-emerald-200 bg-emerald-50 text-emerald-800'
-  if (provider === 'groq_rate_limited') return 'border-amber-200 bg-amber-50 text-amber-800'
+  if (provider === 'ai') return 'border-emerald-200 bg-emerald-50 text-emerald-800'
+  if (provider === 'rate_limited') return 'border-amber-200 bg-amber-50 text-amber-800'
   if (provider === 'local') return 'border-slate-200 bg-slate-50 text-slate-700'
   return 'border-teal-200 bg-teal-50 text-teal-800'
 }

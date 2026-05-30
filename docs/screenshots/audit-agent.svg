@@ -14,5 +14,5 @@
   <text x="422" y="386" font-family="Arial" font-size="16" fill="#0f172a">2. Critical Duplicate Key Check on customer_id</text>
   <text x="422" y="416" font-family="Arial" font-size="16" fill="#0f172a">3. High Duplicate Row Check at dataset level</text>
   <rect x="398" y="500" width="500" height="48" rx="8" fill="#ecfdf5" stroke="#a7f3d0"/>
-  <text x="420" y="529" font-family="Arial" font-size="14" font-weight="700" fill="#047857">Powered by Groq - Llama 3.3 70B - No raw data sent to AI</text>
+  <text x="420" y="529" font-family="Arial" font-size="14" font-weight="700" fill="#047857">Powered by AI - No raw data sent to AI model</text>
 </svg>

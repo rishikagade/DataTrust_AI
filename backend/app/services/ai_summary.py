@@ -11,12 +11,13 @@ except ImportError:
     load_dotenv = None
 
 try:
-    from groq import Groq
+    from openai import OpenAI
 except ImportError:
-    Groq = None
+    OpenAI = None
 
 
 DEFAULT_MODEL = "llama-3.3-70b-versatile"
+DEFAULT_BASE_URL = "https://api.groq.com/openai/v1"
 RAW_VALUE_KEYS = {"sample_values", "raw_values", "row_data", "value", "values", "top_values"}
 
 if load_dotenv is not None:
@@ -24,6 +25,18 @@ if load_dotenv is not None:
     BACKEND_ROOT = Path(__file__).resolve().parents[2]
     load_dotenv(PROJECT_ROOT / ".env")
     load_dotenv(BACKEND_ROOT / ".env", override=False)
+
+
+def get_ai_client():
+    api_key = os.environ.get("AI_API_KEY")
+    base_url = os.environ.get("AI_BASE_URL", DEFAULT_BASE_URL)
+    if not api_key or OpenAI is None:
+        return None
+    return OpenAI(api_key=api_key, base_url=base_url)
+
+
+def get_ai_model(default: str = DEFAULT_MODEL) -> str:
+    return os.environ.get("AI_MODEL", default)
 
 
 def _tier(score: float | int | None) -> str:
@@ -169,21 +182,20 @@ def _build_local_summary(audit_json: dict[str, Any], model: str) -> dict[str, An
         "generated_at": audit_json.get("dataset", {}).get("uploaded_at"),
         "model": model,
         "source": "local",
-        "warning": "GROQ_API_KEY is not configured; using local summary fallback.",
+        "warning": "AI_API_KEY is not configured or the AI provider is unavailable; using local summary fallback.",
     }
 
 
 def generate_ai_report(audit_json: dict[str, Any], model: str = DEFAULT_MODEL) -> dict[str, Any]:
     sanitized = sanitize_audit_context(audit_json)
     prompt = _build_prompt(sanitized)
-    api_key = os.getenv("GROQ_API_KEY")
-    if Groq is None or not api_key:
+    client = get_ai_client()
+    if client is None:
         return _build_local_summary(sanitized, model)
 
     try:
-        client = Groq(api_key=api_key)
         response = client.chat.completions.create(
-            model=os.environ.get("GROQ_MODEL", model),
+            model=get_ai_model(model),
             messages=[
                 {"role": "system", "content": "You write concise business-facing data quality reports from aggregate audit statistics only."},
                 {"role": "user", "content": prompt},
@@ -199,8 +211,8 @@ def generate_ai_report(audit_json: dict[str, Any], model: str = DEFAULT_MODEL) -
             "cleaning_recommendations": parsed.get("cleaning_recommendations", ""),
             "dashboard_impact": parsed.get("dashboard_impact", ""),
             "generated_at": audit_json.get("dataset", {}).get("uploaded_at"),
-            "model": os.environ.get("GROQ_MODEL", model),
-            "source": "groq",
+            "model": get_ai_model(model),
+            "source": "ai",
         }
     except Exception:
         return _build_local_summary(sanitized, model)

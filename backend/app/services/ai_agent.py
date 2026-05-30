@@ -3,7 +3,7 @@ from __future__ import annotations
 import os
 from typing import Any
 
-from .ai_summary import DEFAULT_MODEL, sanitize_audit_context
+from .ai_summary import DEFAULT_MODEL, get_ai_client, get_ai_model, sanitize_audit_context
 
 
 AGENT_SYSTEM_PROMPT = """
@@ -171,7 +171,7 @@ def _column_answer(column: str, findings: list[dict[str, Any]], profiles: dict[s
 def rule_based_fallback(user_message: str, sanitized_audit: dict[str, Any]) -> str:
     """
     Produce a specific, data-grounded answer from the audit JSON without calling a model.
-    Used when GROQ_API_KEY is not set or when Groq is unreachable.
+    Used when AI_API_KEY is not set or when the configured AI provider is unreachable.
     """
     msg = user_message.lower()
     findings = sanitized_audit.get("rule_results", []) or []
@@ -426,11 +426,11 @@ def generate_agent_reply(
 ) -> tuple[str, str]:
     """
     Returns (reply_text, provider_label).
-    provider_label: "groq", "groq_rate_limited", or "local".
+    provider_label: "ai", "rate_limited", or "local".
     """
-    groq_key = os.environ.get("GROQ_API_KEY")
+    client = get_ai_client()
 
-    if groq_key:
+    if client:
         audit_context_text = format_audit_context_for_agent(sanitized_audit)
         system_prompt = AGENT_SYSTEM_PROMPT.format(audit_context=audit_context_text)
         trimmed_history = _normalize_history(conversation_history or [], max_history_turns * 2)
@@ -442,25 +442,21 @@ def generate_agent_reply(
         ]
 
         try:
-            from groq import APIConnectionError, Groq, RateLimitError
-
-            client = Groq(api_key=groq_key)
             response = client.chat.completions.create(
-                model=os.environ.get("GROQ_MODEL", DEFAULT_MODEL),
+                model=get_ai_model(DEFAULT_MODEL),
                 messages=messages,
                 max_tokens=600,
                 temperature=0.2,
             )
-            return response.choices[0].message.content.strip(), "groq"
-        except RateLimitError:
-            return (
-                "The AI agent is temporarily rate-limited on the free tier. "
-                "Wait 30 seconds and try again, or refer to the dashboard findings directly.",
-                "groq_rate_limited",
-            )
-        except APIConnectionError:
-            return rule_based_fallback(user_message, sanitized_audit), "local"
-        except Exception:
+            return response.choices[0].message.content.strip(), "ai"
+        except Exception as exc:
+            error_str = str(exc).lower()
+            if "rate limit" in error_str or "429" in error_str:
+                return (
+                    "The AI agent is temporarily rate-limited. "
+                    "Wait a moment and try again, or refer to the dashboard findings directly.",
+                    "rate_limited",
+                )
             return rule_based_fallback(user_message, sanitized_audit), "local"
 
     return rule_based_fallback(user_message, sanitized_audit), "local"
@@ -482,7 +478,7 @@ def generate_agent_response(
         "reply": reply,
         "answer": reply,
         "audit_id": sanitized.get("audit_id"),
-        "model": os.environ.get("GROQ_MODEL", model),
+        "model": get_ai_model(model),
         "provider": provider,
         "source": provider,
         "tier": sanitized.get("scoring", {}).get("tier") or _tier(sanitized.get("scoring", {}).get("overall_score")),

@@ -10,17 +10,18 @@ from uuid import uuid4
 from datetime import datetime, timezone
 from pathlib import Path
 from .services import profiler
+from .services.ai_summary import DEFAULT_MODEL
 
 class AssistantQuery(BaseModel):
     question: str
-    model: str = "llama-3.3-70b-versatile"
+    model: str = DEFAULT_MODEL
 
 
 class AgentMessageRequest(BaseModel):
     message: str
     conversation_history: list[dict] = []
     audit_context: dict
-    model: str = "llama-3.3-70b-versatile"
+    model: str = DEFAULT_MODEL
 
 
 class AgentMessageResponse(BaseModel):
@@ -91,7 +92,7 @@ def _detect_delimiter(text: str) -> str:
 def _build_audit_response(
     file_name: str,
     text: str,
-    model: str = "llama-3.3-70b-versatile",
+    model: str = DEFAULT_MODEL,
     ai_requested: bool = True,
     demo_dataset: str | None = None,
 ) -> dict:
@@ -167,7 +168,7 @@ async def root():
 async def audit_endpoint(
     file: UploadFile = File(...),
     ai: bool = False,
-    model: str = "llama-3.3-70b-versatile",
+    model: str = DEFAULT_MODEL,
 ):
     """Accept a CSV/TSV upload and return a privacy-safe aggregate audit JSON."""
     if not file.filename.lower().endswith(('.csv', '.tsv')):
@@ -226,7 +227,7 @@ async def list_demo_datasets():
     ])
 
 @app.get('/demo/{dataset_name}')
-async def get_demo_dataset(dataset_name: str, model: str = "llama-3.3-70b-versatile"):
+async def get_demo_dataset(dataset_name: str, model: str = DEFAULT_MODEL):
     dataset_info = DEMO_DATASETS.get(dataset_name)
     if not dataset_info:
         raise HTTPException(status_code=404, detail='Demo dataset not found')

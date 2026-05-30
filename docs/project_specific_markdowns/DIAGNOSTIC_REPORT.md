@@ -2,14 +2,14 @@
 
 **Date:** May 29, 2026  
 **Status:** Feature-complete portfolio MVP; deployment and presentation polish remain  
-**Backend:** FastAPI + pandas + Groq  
+**Backend:** FastAPI + pandas + OpenAI-compatible AI provider  
 **Frontend:** React + TypeScript + Vite + Tailwind + Zustand  
 
 ## Executive Summary
 
 DataTrust AI is now a functional full-stack data quality auditing application. A user can upload a CSV/TSV or run a demo dataset, receive deterministic profiling and validation results, view a weighted 0-100 quality score, explore dashboard pages, export findings, generate a PDF report, and ask audit-specific questions through an AI Audit Agent.
 
-The core privacy boundary is implemented: deterministic rules detect issues, and the AI layer receives only sanitized aggregate audit context. Raw CSV rows and raw-value fields are not sent to Groq.
+The core privacy boundary is implemented: deterministic rules detect issues, and the AI layer receives only sanitized aggregate audit context. Raw CSV rows and raw-value fields are not sent to the configured AI provider.
 
 ## Current Feature Matrix
 
@@ -21,8 +21,8 @@ The core privacy boundary is implemented: deterministic rules detect issues, and
 | Profiler | ✅ Complete | Computes null counts, null percentages, unique counts, inferred types, top-value counts, and numeric summaries |
 | Rules engine | ✅ Complete | 11 validation categories implemented |
 | Scoring | ✅ Complete | Weighted component deductions with severity multipliers |
-| AI summary | ✅ Complete | Uses Groq when configured; local fallback otherwise |
-| AI Audit Agent | ✅ Complete | Uses Groq when configured; data-grounded rule-based fallback otherwise |
+| AI summary | ✅ Complete | Uses an OpenAI-compatible provider when configured; local fallback otherwise |
+| AI Audit Agent | ✅ Complete | Uses an OpenAI-compatible provider when configured; data-grounded rule-based fallback otherwise |
 | PDF export | ✅ Complete | `POST /report/pdf` returns `application/pdf` |
 | Frontend routing | ✅ Complete | Landing, upload, dashboard, column profile, issue list, AI report, export/download, and agent flows |
 | State management | ✅ Complete | Zustand stores audit results and chat history |
@@ -63,8 +63,8 @@ The core privacy boundary is implemented: deterministic rules detect issues, and
 
 Current provider chain:
 
-1. `GROQ_API_KEY` set and `groq` installed → Groq API
-2. Groq unavailable, rate-limited, or key missing → local rule-based fallback
+1. `AI_API_KEY` set with an OpenAI-compatible client installed -> configured AI provider
+2. Provider unavailable, rate-limited, or key missing -> local rule-based fallback
 
 Current recommended model:
 
@@ -72,7 +72,7 @@ Current recommended model:
 llama-3.3-70b-versatile
 ```
 
-The older `llama-3.1-70b-versatile` model is not accepted by the currently tested Groq account, so the project defaults were updated to `llama-3.3-70b-versatile`.
+The default model can be overridden with `AI_MODEL`, as long as the configured provider supports it.
 
 ### Privacy Boundary
 
@@ -128,9 +128,9 @@ The chat panel now includes:
 - Persisted per-audit conversation history
 - A **Clear chat** button for removing stale saved conversations
 - Provider status display:
-  - Groq-powered
+  - AI-powered
   - Rule-based fallback
-  - Groq rate-limited
+  - AI rate-limited
   - Waiting for first response
 
 If the panel shows old local fallback text after switching providers, clear chat history and ask a new question.
@@ -169,11 +169,11 @@ npm install
 VITE_BACKEND_URL=http://127.0.0.1:8000 npm run dev -- --host 127.0.0.1 --port 5173
 ```
 
-Optional Groq setup:
+Optional AI provider setup:
 
 ```bash
 cp backend/.env.example backend/.env
-# Add a real GROQ_API_KEY to backend/.env
+# Add AI_API_KEY, AI_BASE_URL, and AI_MODEL to backend/.env
 ```
 
 ## Verification
@@ -185,7 +185,7 @@ Known local verification results:
 - Frontend focused AI Agent page test: `2 passed`
 - Full frontend suite previously verified: `7 passed`
 - Frontend production build previously verified: passes with Vite chunk-size warning
-- Live provider smoke check: `POST /agent/message` returns `provider: groq` when the backend is running with a valid Groq key
+- Live provider smoke check: `POST /agent/message` returns `provider: ai` when the backend is running with a valid provider key
 
 ## Remaining Work
 
@@ -197,7 +197,7 @@ Known local verification results:
 ### Deployment
 
 - Deploy backend and frontend.
-- Configure production `GROQ_API_KEY`, `GROQ_MODEL`, `ALLOWED_ORIGINS`, and `VITE_BACKEND_URL`.
+- Configure production `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL`, `ALLOWED_ORIGINS`, and `VITE_BACKEND_URL`.
 - Smoke-test demo loading, upload audit, PDF export, and AI agent provider behavior in production.
 
 ### Optional Engineering Polish

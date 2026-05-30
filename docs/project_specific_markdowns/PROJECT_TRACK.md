@@ -26,7 +26,7 @@ The current finishing phase is production and portfolio polish: documentation tr
 8. Added Zustand as the global audit-state source for post-upload pages and persisted chat history by audit ID.
 9. Added charts, ranking tables, score breakdowns, severity views, AI summary cards, and download/export flows.
 10. Added privacy-safe AI summary generation and AI agent flows using sanitized audit context only.
-11. Replaced OpenAI with Groq for AI calls, using `GROQ_API_KEY` and `GROQ_MODEL`.
+11. Added OpenAI-compatible AI provider support, using `AI_API_KEY`, `AI_BASE_URL`, and `AI_MODEL`.
 12. Added a rule-based local fallback for the AI agent that still references actual columns, counts, percentages, severities, and score deductions.
 13. Added backend pytest coverage and frontend Vitest coverage.
 14. Added `.env.example`, `backend/.env.example`, backend Dockerfile, and `docker-compose.yml`.
@@ -39,7 +39,7 @@ The current finishing phase is production and portfolio polish: documentation tr
 - Frontend tests: `7 passed`
 - Focused AI Agent page test: `2 passed`
 - Frontend production build: passes with a Vite chunk-size warning
-- Live backend check: `POST /agent/message` returns `provider: groq` when `backend/.env` contains a valid Groq key and `groq` is installed
+- Live backend check: `POST /agent/message` returns `provider: ai` when `backend/.env` contains a valid AI provider key and `openai` is installed
 - Sanitization check: raw-value keys such as `sample_values`, `raw_values`, `row_data`, and `top_values` are excluded from AI context
 
 ## Active Local Dev Servers
@@ -57,7 +57,7 @@ Avoid using stale Vite or backend ports from previous sessions. If provider outp
 
 Status: in progress
 
-Update all project-facing docs so they match the current implementation: Groq instead of OpenAI, generated large sample datasets instead of small fixtures, tests present, deployment config present, and frontend backend URL driven by environment config.
+Update all project-facing docs so they match the current implementation: OpenAI-compatible AI provider configuration, generated large sample datasets instead of small fixtures, tests present, deployment config present, and frontend backend URL driven by environment config.
 
 ### Phase 2 — Portfolio Presentation
 
@@ -94,7 +94,7 @@ Run a final end-to-end pass on a clean clone:
 
 ## Current Risks
 
-- A real Groq key must live only in `.env` or deployment secrets, never in `.env.example`.
+- A real AI provider key must live only in `.env` or deployment secrets, never in `.env.example`.
 - Browser local storage can retain old chat history by audit ID; use **Clear chat** when switching provider configuration.
 - The frontend build has a chunk-size warning. This is not blocking, but route-level code splitting would be a good future optimization.
 - The live demo URL is still a placeholder until deployment is complete.

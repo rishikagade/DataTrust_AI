@@ -55,9 +55,9 @@ For local debugging, prefer one fresh Vite server on port `5173` and one FastAPI
 
 The chat panel shows the last provider returned by the backend:
 
-- `Powered by Groq · Llama 3.3 70B | No raw data sent to AI`
-- `Using rule-based responses | Add GROQ_API_KEY for AI answers`
-- `Groq rate limit reached — using rule-based responses | Try again in 30s`
+- `Powered by AI | No raw data sent to AI model`
+- `Using rule-based responses | Add AI_API_KEY to .env for AI-powered answers`
+- `AI rate limit reached — using rule-based responses | Try again shortly`
 
 If old local-fallback messages remain in the panel, use **Clear chat**. Chat history is persisted per audit ID in browser local storage.
 
